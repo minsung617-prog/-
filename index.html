@@ -8,8 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,"Noto Sans KR",sans-serif}
 body{background:#f6f8fc;color:#111827}
 .top{background:#123c7c;color:#fff;padding:18px 24px 16px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.title{font-size:22px;font-weight:900}
-.sub{font-size:12px;opacity:.85;margin-top:5px}
+.title{font-size:22px;font-weight:900}.sub{font-size:12px;opacity:.85;margin-top:5px}
 .search{width:280px;padding:12px 16px;border:1px solid rgba(255,255,255,.45);border-radius:999px;background:rgba(255,255,255,.13);color:#fff;font-size:14px}
 .search::placeholder{color:#dbeafe}
 .nav{background:#123c7c;padding:0 24px 16px;display:flex;gap:8px;flex-wrap:wrap}
@@ -23,8 +22,7 @@ body{background:#f6f8fc;color:#111827}
 .actions{display:flex;gap:10px}
 .action{border:1px solid #9db5da;background:#fff;color:#123c7c;border-radius:8px;padding:11px 16px;font-weight:900;cursor:pointer}
 .action.primary{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-.count{margin:14px 0;color:#64748b;font-size:14px}
-.count b{color:#123c7c}
+.count{margin:14px 0;color:#64748b;font-size:14px}.count b{color:#123c7c}
 .list{display:flex;flex-direction:column;gap:10px}
 .item{background:#fff;border:1px solid #dbe3ef;border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:34px 78px 1fr 78px;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(15,31,61,.04)}
 .check{width:20px;height:20px;accent-color:#1d4ed8}
@@ -33,22 +31,14 @@ body{background:#f6f8fc;color:#111827}
 .meta{color:#64748b;font-size:14px;line-height:1.6}
 .copy{border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:11px 13px;font-weight:900;cursor:pointer}
 .empty{background:#fff;border:1px solid #dbe3ef;border-radius:12px;padding:30px;text-align:center;color:#64748b;line-height:1.7}
-@media(max-width:760px){
-  .top{align-items:flex-start}.search{width:100%}
-  .item{grid-template-columns:28px 70px 1fr;gap:8px}.copy{grid-column:1/4}
-}
+@media(max-width:760px){.top{align-items:flex-start}.search{width:100%}.item{grid-template-columns:28px 70px 1fr;gap:8px}.copy{grid-column:1/4}}
 </style>
 </head>
 <body>
-
 <header class="top">
-  <div>
-    <div class="title">SBS컴퓨터아트학원 안산점 — 개강안내</div>
-    <div class="sub">과목을 선택해 메시지를 복사하세요</div>
-  </div>
+  <div><div class="title">SBS컴퓨터아트학원 안산점 — 개강안내</div><div class="sub">과목을 선택해 메시지를 복사하세요</div></div>
   <input id="search" class="search" placeholder="🔍 과목명 검색">
 </header>
-
 <nav class="nav">
   <button class="room active" onclick="setRoom('전체', this)">전체</button>
   <button class="room" onclick="setRoom('A', this)">A강의장</button>
@@ -60,7 +50,6 @@ body{background:#f6f8fc;color:#111827}
   <button class="room" onclick="setRoom('G', this)">G강의장</button>
   <button class="room" onclick="setRoom('H', this)">H강의장</button>
 </nav>
-
 <main class="main">
   <section class="tabs">
     <div class="left-tabs">
@@ -73,13 +62,11 @@ body{background:#f6f8fc;color:#111827}
       <button class="action primary" onclick="copySelected()">📋 선택복사</button>
     </div>
   </section>
-
   <div id="count" class="count">데이터 불러오는 중...</div>
   <section id="list" class="list"></section>
 </main>
-
 <script>
-const gvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQEhGDeLXbf2QSzxE_dn8ZbUBY0DDKfg9WFV7BAxY1U6eW4gq0WWVglbsgYHaUaSuIwfSraLGVtcC3V/gviz/tq?gid=251230523&tqx=out:json;responseHandler:handleSheetData";
+const gvizUrl = "https://docs.google.com/spreadsheets/d/1kAqljMGsh_VoYbP3BDEvaJD9fWFYUIM6ZsuAt5v9qos/gviz/tq?gid=251230523&tqx=out:json;responseHandler:handleSheetData";
 
 let allCourses = [];
 let currentType = "전체";
@@ -89,15 +76,9 @@ function loadData(){
   const s = document.createElement("script");
   s.src = gvizUrl;
   s.onerror = function(){
-    document.getElementById("count").innerHTML = "<b style='color:#b91c1c'>데이터 로딩 실패</b> — 구글시트 웹게시 상태를 확인해주세요.";
+    document.getElementById("count").innerHTML = "<b style='color:#b91c1c'>데이터 로딩 실패</b> — 구글시트 공유/게시 상태를 확인해주세요.";
   };
   document.body.appendChild(s);
-
-  setTimeout(function(){
-    if(allCourses.length === 0){
-      document.getElementById("count").innerHTML = "<b style='color:#b91c1c'>데이터가 아직 표시되지 않습니다.</b> — WEB_DATA 게시 링크 또는 gid를 확인해주세요.";
-    }
-  }, 8000);
 }
 
 function handleSheetData(data){
@@ -105,23 +86,19 @@ function handleSheetData(data){
     const rows = data.table.rows || [];
     const cols = data.table.cols || [];
     const headers = cols.map(c => c.label || "");
-
     allCourses = rows.map(row => {
       const obj = {};
-      row.c.forEach((cell, i) => {
-        const key = headers[i];
+      headers.forEach((key, i) => {
+        const cell = row.c[i];
         obj[key] = cell ? (cell.f || cell.v || "") : "";
       });
-
       const room = String(obj["강의장"] || "");
-      const roomGroup = room.charAt(0);
-
       return {
         id: `${obj["구분"]}-${obj["과목명"]}-${obj["강의장"]}-${obj["시간"]}-${obj["개강일"]}`,
         구분: String(obj["구분"] || ""),
         과목명: String(obj["과목명"] || ""),
         강의장: room,
-        강의장그룹: roomGroup,
+        강의장그룹: room.charAt(0),
         요일: String(obj["요일"] || ""),
         시간: String(obj["시간"] || ""),
         개강일: String(obj["개강일"] || ""),
@@ -131,7 +108,6 @@ function handleSheetData(data){
         비대면링크: String(obj["비대면링크"] || "")
       };
     }).filter(x => x.과목명);
-
     render();
   }catch(e){
     document.getElementById("count").innerHTML = "<b style='color:#b91c1c'>데이터 처리 실패</b> — WEB_DATA 헤더를 확인해주세요.";
@@ -146,14 +122,12 @@ function setType(type){
   document.getElementById("weekendBtn").classList.toggle("active", type==="주말");
   render();
 }
-
 function setRoom(room, btn){
   currentRoom = room;
   document.querySelectorAll(".room").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
   render();
 }
-
 function getFiltered(){
   const keyword = document.getElementById("search").value.trim();
   return allCourses.filter(x => {
@@ -163,54 +137,38 @@ function getFiltered(){
     return typeOk && roomOk && searchOk;
   });
 }
-
 function render(){
   const filtered = getFiltered();
   document.getElementById("count").innerHTML = `총 <b>${filtered.length}</b>개 과목　　<span id="selectedCount">0개 선택됨</span>`;
-
   if(filtered.length === 0){
     document.getElementById("list").innerHTML = `<div class="empty">표시할 과정이 없습니다.</div>`;
     return;
   }
-
   document.getElementById("list").innerHTML = filtered.map(x => `
     <article class="item">
       <input class="check" type="checkbox" data-id="${escapeHtml(x.id)}" onchange="updateSelectedCount()">
       <span class="badge">${escapeHtml(x.강의장그룹 || "-")}강의장</span>
       <div>
         <div class="name">${escapeHtml(x.과목명)}</div>
-        <div class="meta">
-          ${escapeHtml(x.구분)} | ${escapeHtml(x.요일 || "-")} | ${escapeHtml(x.시간 || "-")} |
-          ${shortDate(x.개강일)}~${shortDate(x.종강일)} | ${escapeHtml(x.강사명 || "-")}강사
-        </div>
+        <div class="meta">${escapeHtml(x.구분)} | ${escapeHtml(x.요일 || "-")} | ${escapeHtml(x.시간 || "-")} | ${shortDate(x.개강일)}~${shortDate(x.종강일)} | ${escapeHtml(x.강사명 || "-")}강사</div>
       </div>
       <button class="copy" onclick='copyCourse(${JSON.stringify(x)})'>📋 복사</button>
     </article>
   `).join("");
 }
-
-function shortDate(d){
-  if(!d) return "-";
-  return String(d).slice(5).replace("-",".");
-}
-
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
-}
-
+function shortDate(d){ return d ? String(d).slice(5).replace("-",".") : "-"; }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m])); }
 function updateSelectedCount(){
   const n = document.querySelectorAll(".check:checked").length;
   const el = document.getElementById("selectedCount");
   if(el) el.innerText = `${n}개 선택됨`;
 }
-
 function toggleAllChecks(){
   const checks = [...document.querySelectorAll(".check")];
   const allChecked = checks.length > 0 && checks.every(x => x.checked);
   checks.forEach(x => x.checked = !allChecked);
   updateSelectedCount();
 }
-
 document.getElementById("search").addEventListener("input", render);
 
 function makeText(x){
@@ -229,21 +187,17 @@ ${x.비대면링크}
 
 ★수강생 필독★`;
 }
-
 function copyCourse(x){
   navigator.clipboard.writeText(makeText(x));
   alert("복사되었습니다.");
 }
-
 function copySelected(){
   const ids = [...document.querySelectorAll(".check:checked")].map(x => x.dataset.id);
   if(ids.length === 0){ alert("선택된 과목이 없습니다."); return; }
-
   const selected = getFiltered().filter(x => ids.includes(x.id));
   navigator.clipboard.writeText(selected.map(makeText).join("\n\n--------------------\n\n"));
   alert(`${selected.length}개 과목이 복사되었습니다.`);
 }
-
 loadData();
 </script>
 </body>
